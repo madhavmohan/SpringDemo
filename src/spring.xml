@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+	default-init-method="myInit" default-destroy-method="cleanup">
+
+	<bean id="parenttraingle" class="org.madhav.Triangle" abstract="true">
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="triangle1" init-method="initmethod2" class="org.madhav.Triangle" parent="parenttraingle">
+		<property name="points" >
+			<list  merge="true"	>
+				<ref bean="pointB" />
+			</list>
+		</property>
+
+
+	</bean>
+	
+<!--	<bean id="circle"  class="org.madhav.Circle">-->
+<!--		<property name="center" >-->
+			
+<!--				<ref bean="pointB" />-->
+			
+<!--		</property>-->
+
+
+<!--	</bean>-->
+	<bean id="triangle2" class="org.madhav.Triangle" parent="parenttraingle">
+		<property name="points">
+			<list>
+				<ref bean="pointA" />
+			</list>
+		</property>
+
+
+	</bean>
+	<bean id="pointA" class="org.madhav.Point">
+		<property name="x" value="0"></property>
+		<property name="y" value="0"></property>
+
+	</bean>
+	<bean id="pointB" class="org.madhav.Point">
+		<property name="x" value="-20"></property>
+		<property name="y" value="0"></property>
+
+	</bean>
+	<bean id="pointC" class="org.madhav.Point">
+		<property name="x" value="20"></property>
+		<property name="y" value="0"></property>
+
+	</bean>
+	<bean id="center" class="org.madhav.Point">
+		<property name="x" value="20"></property>
+		<property name="y" value="0"></property>
+
+	</bean>
+	<bean class="org.madhav.DisplayBeanPostProcessor"/>
+	<bean class="org.madhav.MyBeanFactoryPP"/>
+	<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
+	
+	<context:component-scan base-package="org.madhav"></context:component-scan>
+	<context:annotation-config/>
+	  
+</beans>
